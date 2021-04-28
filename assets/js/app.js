@@ -38,6 +38,9 @@ function newTweet(e) {
     li.appendChild(removeBtn);
 
     tweetList.appendChild(li);    
+
+    addTweeTLocalStorage(tweet);
+
 }
 
 function removeTweet(e) {
@@ -47,4 +50,22 @@ function removeTweet(e) {
 
 }
 
+function addTweeTLocalStorage(tweet) {
+    let tweets = getTweetsFromStorage();
 
+    tweets.push(tweet);
+
+    localStorage.setItem('tweets' , JSON.stringify(tweets) );
+}
+
+function getTweetsFromStorage() {
+    let tweets;
+    const tweetsLS = localStorage.getItem('tweets');
+
+     if (tweetsLS === null) {
+         tweets = [];
+     } else {
+         tweets = JSON.parse(tweetsLS);
+     }
+     return tweets;
+}
