@@ -41,12 +41,18 @@ function newTweet(e) {
 
     addTweeTLocalStorage(tweet);
 
+    alert('Tweet Added');
+
+    this.reset();
 }
 
 function removeTweet(e) {
     if(e.target.classList.contains('remove-tweet')) {
         e.target.parentElement.remove();
     } 
+
+
+    removeTweetLocalStorage(e.target.parentElement.textContent);
 
 }
 
@@ -86,4 +92,21 @@ function localStorageOnLoad() {
     
         tweetList.appendChild(li);
     })
+}
+
+
+function removeTweetLocalStorage(tweet) {
+    let tweets = getTweetsFromStorage(); 
+    
+
+    const tweetDelete = tweet.substring( 0, tweet.length -1);
+
+    tweets.forEach(function(tweetLS, index) {
+        if(tweetDelete === tweetLS) {
+            tweets.splice(index, 1);
+        }
+        
+    });
+
+    localStorage.setItem('tweets', JSON.stringify(tweets) );
 }
